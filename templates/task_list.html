@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block body %}
+<h1 style="text-align: center;">TODOs</h1>
+
+<table class="table table-bordered table-striped table-responsive">
+    <caption>List of tasks for [{{user.username}}]</caption>
+    <thead class="table-dark">
+        <tr>
+            <th>Task </th>
+            <th>Due date</th>
+            <th>Completed? </th>
+            <th>Added </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    {% for task in tasks%}
+    <tr>
+        <td>{{task.task_name}}</td>
+        <td>{{task.due_date}}</td>
+        <td>{{task.completed}}</td>
+        <td>{{task.date_created}}</td>
+        <td>
+            <a class="btn btn-primary btn-sm" href="/complete/{{user.id}}/{{task.id}}">Complete</a>
+            <a class="btn btn-info btn-sm" href="/update/{{user.id}}/{{task.id}}">Update</a>
+            <a class="btn btn-danger btn-sm" href="/delete/{{user.id}}/{{task.id}}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="form-wrapper">
+    <form action="/user/{{user.id}}/tasks" method="POST">
+        <div class="mb-3">
+            <label for="task_name" class="form-label">Task name</label>
+            <input type="text" class="form-control" id="task_name" name="task_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="task_due_date" class="form-label">Due date</label>
+            <input type="date" class="form-control datepicker" id="task_due_date"  name="task_due_date" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+    </form>
+</div>
+{% endblock %}

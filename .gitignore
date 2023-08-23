@@ -1,0 +1,5 @@
+instance/*.sqlite
+venv/
+__pycahce__/
+.vscode
+.DS_Store
